@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let r = confirm("식사를 하셨나요?");
+      if (r) {
+        document.write("밥 잘먹었습니다.");
+      } else {
+        document.write("배고파요");
+      }
+
+      let redvelvet = "name=아이린";
+      let encoding = encodeURI(redvelvet);
+      encoding = decodeURI(encoding);
+      alert(encoding);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ajax</title>
+</head>
+<body>
+	<div id="display"></div>
+	<button id="allbtn">전체 데이터 가져오기</button>
+	<button id="fetchbtn">Fetch API 사용</button>
+
+
+	bid <input type="text" id="bid"/>
+	<button id='getbook'>데이터1개가져오기</button>
+	
+	<h2>Form 태그에 넣어서 전송하기</h2>
+	<!-- ajax 로 보낼 때 id 만 필요.-->
+	<!-- submit 으로 전송할 땐 나머지 3개도 필요-->
+	<!-- action은 처리할 서버의 URL -->
+	<!-- method은 전송방식, 기본은 get -->
+	<!-- enctype은 파일이 있는 경우 mutlipart-formdata를 설정. -->
+	<form id="bookform" >
+		<p>bid<input type="number" name="bid"></p>
+		<p>제목<input type="text" name="title"></p>
+		<p>작가<input type="text" name="author"></p>
+		<p>분류<input type="text" name="category"></p>
+		<p>페이지수<input type="number" name="pages"></p>
+		<p>가격<input type="number" name="price"></p>
+		<p>출간일<input type="date" name="published_date"></p>
+		<p>설명<textarea  name="description" rows="4" cols="20"></textarea></p>
+
+		<p><input type="button" value="전송" id="insert"></p>
+	</form>
+
+
+	<script>
+		// fetch API
+		
+		document.getElementById('fetchbtn').addEventListener("click",(e)=>{
+			/*
+			let request=new XMLHttpRequest();
+			
+			request.open('GET','../api/fbv/insert',true)
+			// alert(request)
+			// 전송- 전송할 데이터가 없으면 그냥 ''
+			request.send('')
+			// 성공시 수행동작
+			request.addEventListener('load',(e)=>{
+				let data=JSON.parse(request.responseText);
+				console.log(data)
+			})*/
+			fetch('../api/fbv/insert').then((Response)=>Response.json()).then((data)=>console.log(data))
+		})
+
+		//  ajax 를  이용한 POST 방식
+		document.getElementById("insert").addEventListener('click',(e)=>{
+			//form 에 입력된 데이터 가져오기
+			let bookform=document.getElementById("bookform");
+			let formdata=new FormData(bookform);
+			// ajax 요청
+			let request=new XMLHttpRequest();
+			// 요청 생성
+			request.open("POST",'../api/fbv/insert',true);
+			// form 의 데이터를 post 방식으로 전송하기 위한 데이터로 변경
+			// request.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			// let param="";
+			// for (let pair of formdata.entries()){
+			// 	param+=pair[0]+'='+pair[1]+'&';
+			// }
+			
+			// // 요청 전송
+			// request.send(param);
+
+			// json 으로 전송
+			// Convert FormData to a JavaScript object
+			const formDataObj = {};
+			for (let pair of formdata.entries()) {
+			formDataObj[pair[0]] = pair[1];
+			}
+
+			// Convert the JavaScript object to a JSON string
+			const jsonData = JSON.stringify(formDataObj);
+
+			// Create the XMLHttpRequest or fetch request
+			// Assuming you already have 'request' or 'fetch' object defined
+
+			// Set the appropriate content type to indicate JSON data
+			request.setRequestHeader('Content-Type', 'application/json');
+
+			// Send the JSON data
+			request.send(jsonData);
+
+
+			// 응답 결과 처리
+			request.addEventListener("load",(e)=>{
+				console.log(request.responseText)
+			})
+
+
+
+		})
+
+
+
+
+		document.getElementById("getbook").addEventListener('click',(e)=>{
+			let bid=document.getElementById('bid').value
+			//alert(bid)
+			let request=new XMLHttpRequest();
+			request.open('GET','../api/fbv/select/'+bid,true);
+			request.send('')
+			request.addEventListener('load',(e)=>{
+				// alert(request.responseText)
+				let data=JSON.parse(request.responseText);
+				let txt='';
+				// alert('detail' in data);
+				if ('detail' in data){// title 이라는 속성이 data에 있을때 
+					txt="<h3>"+"데이터가 없다"+"<h3>"
+					
+				}else{
+					txt+="<h3>"+data.description+"</h3>"
+					txt+="<h3>"+data.title+"</h3>"
+				}
+				
+				document.getElementById('display').innerHTML=txt;
+				
+
+				
+			})
+		});
+
+
+
+
+		document.getElementById("allbtn").addEventListener("click",(e)=>{
+			let request = new XMLHttpRequest();
+			// 출력하는 함수에 객체를 대입하면 toString 메소드를 호출한다. 
+			// python 은 __str__ 메서드를 호출함. 
+			// 위 메서드를 재정의하면 그 내용이 출력디지만 재정의를 안하면 기본적으로 설정된 값이 출력된다. 
+			// console.log(request)
+
+			// 현재 url localhost:8000/ajax
+			request.open('GET','../api/fbv/insert',true);
+			// 전체 데이터 호출 
+			request.send('')
+			// 응답이 오면 호출
+			request.addEventListener('load',(e)=>{
+				// 문자열로 오는것
+				console.log(request.responseText);
+				// 데이터로 변환 문자열을 js 데이터로 변환한것. 
+				// 객체들의 배열 [Object.object]형식으로 출력.
+				let data=JSON.parse(request.responseText);
+				let txt='';
+				for(let item of data){// in : index가져옴, of: object 가져옴
+					txt+="<h3>"+item.title+"</h3>"
+					txt+="<h3>"+item.description+"</h3>"
+				}
+				document.getElementById('display').innerHTML=txt;
+			})
+		})
+
+
+
+	</script>
+
+</body>
+</html>

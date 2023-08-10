@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      /* let score=90;
+		//score가 60 이상이면 합격이라고 콘솔에 출력!
+		if (score>60){
+			console.log("합격")
+			//let name="adam"
+		}
+		//console.log(name) */
+      /* let score = 50;
+      let pass = true;
+      if (score >= 60) {
+        pass = true;
+        console.log(pass);
+      } else {
+        pass = false;
+        console.log(pass);
+      }
+      console.log(pass); */
+      /* let score = 159.9;
+      //80이상이면 우수 그렇지 않고 60 이상이면 보통 0-59사이는 저조
+      if (score >= 80 && score <= 100) {
+        console.log("우수");
+      } else if (score >= 60 && score < 80) {
+        console.log("보통");
+      } else if (score >= 0 && score < 60) {
+        console.log("저조");
+      } else {
+        console.log("값이 잘못되었습니다. ");
+      } */
+      let year = 2023;
+      /* year가 윤년인지 판별해서 윤년이면 2023년은 윤년이라고 콘솔에 출력, 아니면 윤년이 아닌걸로 출력.
+      윤년은 아래 조건중 하나만 만족하면 된다.
+      1. 4의 배수이고 100의 배수는 아니다.
+      2. 400의 배수인 경우. */
+      if (year % 4 == 0 && year % 100!=0 || year % 400 == 0) {
+        console.log(year+"년은 윤년입니다.");
+      } else {
+        console.log(year+"은 윤년이 아닙니다. ");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

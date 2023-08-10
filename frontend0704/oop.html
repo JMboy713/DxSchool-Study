@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let company = "  ncsoft  ";
+      let result = company.trim().toUpperCase();
+
+      console.log(result);
+      console.log(company.indexOf("soft"));
+
+      //확장자를 출력하세요
+      let filename = "jason.hwp";
+      let idx = filename.indexOf(".");
+      console.log(idx);
+      console.log(filename.substr(idx + 1, filename.length));
+      console.log(filename.substring(idx + 1)); // 숫자 뒤의 문자.
+
+      let ar = filename.split(".");
+      console.log(ar[1]);
+
+      //cggc의 모든 위치를 출력하세요
+      let origin = "ABCDECGGCDKEDCGGCGGCDDDD";
+    </script>
+  </body>
+</html>

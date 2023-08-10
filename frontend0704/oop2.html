@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="element"></div>
+    <input type="text" name="" id="name" />
+    <button id="btn">버튼</button>
+    <script>
+      document.getElementById("btn").addEventListener("click", (e) => {
+        document.getElementById("element").innerHTML =
+          document.getElementById("name").value;
+      });
+    </script>
+  </body>
+</html>

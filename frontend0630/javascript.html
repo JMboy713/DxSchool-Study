@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>javascript practice</title>
+	<!--외부에 있는 파일 읽어오기.-->
+	<script src="./js/first.js"></script>
+</head>
+<body>
+	<button onclick="alert('버튼을 눌렀습니다.')">button</button>
+	<button id="btn">button2</button>
+	<script>
+		console.log("안녕하세요")
+		document.getElementById("btn").addEventListener("click",
+		function(){
+			alert("두번째 버튼 클릭")
+		}
+		)
+	</script>
+</body>
+</html>
