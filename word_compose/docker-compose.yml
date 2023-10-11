@@ -1,0 +1,42 @@
+version: '3'
+services:
+  mydb:
+    image: mysql:8.0 # 이미지 이름
+    container_name: mysql_app1 # 컨테이너이름
+    volumes:
+      - mydb_data:/var/lib/mysql # 볼륨 제어
+    networks:
+      - backend-net
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: wlals980713
+      MYSQL_DATABASE: db2
+      MYSQL_USER: jimin 
+      MYSQL_PASSWORD: wlals980713
+  myweb:
+    image: wordpress:5.7
+    
+    volumes:
+      - myweb_data:/var/www/html
+      - ${PWD}/myweb-log:/var/log
+    networks:
+      - backend-net
+      - frontend-net
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql_app1:3306 # 여기엔 서비스 이름을 적는다. db의 서비스 이름 - mydb
+      WORDPRESS_DB_USER: jimin
+      WORDPRESS_DB_PASSWORD: wlals980713
+      WORDPRESS_DB_NAME: db2
+    depends_on:
+      - mydb
+networks:
+  frontend-net: {}
+  backend-net: {}
+volumes:
+  mydb_data: {}
+  myweb_data: {}
