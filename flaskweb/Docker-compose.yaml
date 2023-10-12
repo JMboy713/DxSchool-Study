@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis_application:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+  flask_applicaition:
+    build: .
+    ports:
+      - "9000:9000"
+    depends_on:
+      - redis_application
+    restart: always
+    
