@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+
+kind: Deployment # 배포할 오브젝트 종류 설정
+
+# 메타 데이터 설정 - 기본이 되는 옵션
+metadata:
+  name: nginx-deploy # 디플로이먼느 이름 ( 헷갈리지 않게 yaml 파일과 동일하게 적음)
+  labels:
+    app: nginx # 디플로이먼트의 레이블 : 레플리카나 파드의 기본 이름 (prefix)
+
+spec:
+  replicas: 2 # 파드의 개수 설정. - 동일한 종류의 파드의 개수. 
+  # 디플로이먼트가 관리할 파드를 선택. 
+  selector:
+    matchLabels:
+      app: nginx
+    # 실제 파드를 만들 정보
+  template:
+    metadata:
+      labels:
+        app: nginx
+  # 컨테이너 정보 설정
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
