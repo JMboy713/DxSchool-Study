@@ -4,15 +4,15 @@ kind: Service # 배포할 오브젝트 종류 설정
 
 # 메타 데이터 설정 - 기본이 되는 옵션
 metadata:
-  name: nginx-svc # 디플로이먼느 이름 ( 헷갈리지 않게 yaml 파일과 동일하게 적음)
+  name: my-nginx # 디플로이먼느 이름 ( 헷갈리지 않게 yaml 파일과 동일하게 적음)
   labels:
-    app: nginx # 서비스의 레이블 : 레플리카나 파드의 기본 이름 (prefix)
+    app: my-nginx # 서비스의 레이블 : 레플리카나 파드의 기본 이름 (prefix)
 
 spec:
   type: NodePort # 외부로 포트포워딩 하겠단 의미. 
   ports:
   - port: 8080
-    nodePort: 31472 #외부 포트
+    nodePort: 31472 #외부 포트 30000-32767 까지만 사용 가능하다. 
     targetPort: 80 # 내부 포트 
   selector:
-    app: nginx
+    app: nginx # nginx 레이블이 달린 파드에 적용. 
